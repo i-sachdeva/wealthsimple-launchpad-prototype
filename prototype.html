@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explainable Email Risk Analyzer Prototype</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --card: #ffffff;
+      --text: #1f1f1f;
+      --muted: #6a6a6a;
+      --border: #dedbd2;
+      --accent: #111111;
+      --high: #a12622;
+      --medium: #b26a00;
+      --low: #1a7f37;
+      --pillbg: #f1efe8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 22px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 3px 18px rgba(0,0,0,0.04);
+    }
+    h1 { margin: 0 0 8px; font-size: 2rem; line-height: 1.1; }
+    h2 { margin: 0 0 10px; font-size: 1.15rem; }
+    p { margin: 0 0 12px; }
+    .sub { color: var(--muted); }
+    .kicker {
+      display: inline-block;
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--pillbg);
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      padding: 12px 14px;
+      font: inherit;
+      color: var(--text);
+    }
+    textarea { min-height: 190px; resize: vertical; }
+    .row { margin-bottom: 14px; }
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    button {
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button.secondary {
+      background: #e8e4da;
+      color: #222;
+    }
+    .risk-box {
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      background: #fbfaf6;
+    }
+    .risk-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .risk-score {
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+    .tag {
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .high { background: var(--high); }
+    .medium { background: var(--medium); }
+    .low { background: var(--low); }
+    ul {
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
+    li { margin-bottom: 8px; }
+    .mini {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .examples {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .examples button {
+      background: #fff;
+      color: #222;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      font-weight: 600;
+    }
+    .footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    code.inline {
+      background: #f0ede5;
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.9em;
+    }
+    @media (max-width: 840px) {
+      .hero, .grid { grid-template-columns: 1fr; }
+      h1 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="card">
+        <div class="kicker">Prototype for Wealthsimple Launchpad</div>
+        <h1>Explainable Email Risk Analyzer</h1>
+        <p class="sub">A concept prototype for improving Gmail’s phishing protection by combining backend risk scoring with clear, user-facing explanations.</p>
+        <p>This prototype shows the product idea behind my video response which is to explain why suspicious emails get flagged and explain why they are risky so users can make safer decisions.</p>
+      </div>
+      <div class="card">
+        <h2>What this demonstrates</h2>
+        <ul>
+          <li><strong>Risk scoring:</strong> combine multiple backend signals instead of relying on a single rule.</li>
+          <li><strong>Explainability:</strong> convert technical findings into concise, readable reasons.</li>
+          <li><strong>Actionability:</strong> adjust the warning severity based on how confident the system is.</li>
+        </ul>
+        <p class="mini">Sample signals used here: sender-domain similarity, urgency language, request for credentials, suspicious links, and unfamiliar sender patterns.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Analyze a message</h2>
+        <div class="row">
+          <label for="from">From</label>
+          <input id="from" value="support@paypaI-security.com" />
+        </div>
+        <div class="row">
+          <label for="subject">Subject</label>
+          <input id="subject" value="Urgent: Verify your account now" />
+        </div>
+        <div class="row">
+          <label for="body">Message body</label>
+          <textarea id="body">Dear customer,
+
+Your account will be suspended today unless you verify your information immediately.
+Click here to confirm your login and banking details:
+http://paypal-security-check-login.net/verify
+
+Failure to act now may result in permanent restrictions.
+
+Thank you,
+PayPal Support</textarea>
+        </div>
+        <div class="buttons">
+          <button onclick="analyzeEmail()">Analyze email</button>
+          <button class="secondary" onclick="loadExample('bank')">Load bank example</button>
+          <button class="secondary" onclick="loadExample('google')">Load Google example</button>
+          <button class="secondary" onclick="loadExample('safe')">Load safe example</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Analysis result</h2>
+        <div id="result"></div>
+      </div>
+    </div>
+
+
+  <script>
+    const examples = {
+      bank: {
+        from: 'security@rbc-verification-support.com',
+        subject: 'Immediate action required: secure your account',
+        body: 'We noticed unusual activity. To prevent account suspension, confirm your card number and sign in here: http://rbc-security-check-login.com/secure within 30 minutes.'
+      },
+      google: {
+        from: 'workspace-alerts@goog1e-login-help.com',
+        subject: 'Password expiry notice',
+        body: 'Your Google Workspace password expires today. Reset it immediately using this link: http://google-reset-help.net before access is removed.'
+      },
+      safe: {
+        from: 'teacher@turnerfenton.ca',
+        subject: 'Updated schedule for tomorrow',
+        body: 'Hi Ishan, just sharing the updated room schedule for tomorrow\'s meeting. No action needed unless you have a conflict.'
+      }
+    };
+
+    function domainFromEmail(email) {
+      const parts = email.toLowerCase().split('@');
+      return parts.length > 1 ? parts[1] : '';
+    }
+
+    function analyzeEmail() {
+      const from = document.getElementById('from').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const body = document.getElementById('body').value.trim();
+      const text = `${subject} ${body}`.toLowerCase();
+      const domain = domainFromEmail(from);
+
+      let score = 0;
+      const reasons = [];
+      const notes = [];
+
+      const brandLookalikes = [
+        { brand: 'paypal.com', clues: ['paypai', 'paypal-security', 'paypa1'] },
+        { brand: 'rbc.com', clues: ['rbc-verification', 'rbc-security', 'rbc-login'] },
+        { brand: 'google.com', clues: ['goog1e', 'google-reset', 'login-help'] },
+        { brand: 'microsoft.com', clues: ['rnicrosoft', 'micr0soft', 'office-reset'] }
+      ];
+
+      for (const item of brandLookalikes) {
+        if (item.clues.some(c => domain.includes(c))) {
+          score += 3.0;
+          reasons.push(`Sender domain resembles <strong>${item.brand}</strong> but appears altered.`);
+          notes.push('lookalike_domain');
+          break;
+        }
+      }
+
+      const urgencyTerms = ['urgent', 'immediately', 'today', '30 minutes', 'suspended', 'suspension', 'failure to act', 'verify now', 'expires today', 'required'];
+      const urgencyHits = urgencyTerms.filter(term => text.includes(term));
+      if (urgencyHits.length >= 2) {
+        score += 2.0;
+        reasons.push(`The message uses pressure or urgency language such as <strong>${urgencyHits.slice(0,3).join(', ')}</strong>.`);
+        notes.push('urgency_language');
+      }
+
+      const credentialTerms = ['login', 'password', 'banking details', 'card number', 'verify your information', 'confirm your login', 'reset it immediately'];
+      const credentialHits = credentialTerms.filter(term => text.includes(term));
+      if (credentialHits.length >= 1) {
+        score += 2.2;
+        reasons.push('The email asks for sensitive account or credential-related action.');
+        notes.push('credential_request');
+      }
+
+      const linkMatch = body.match(/https?:\/\/[^\s]+/gi) || [];
+      if (linkMatch.length > 0) {
+        const suspiciousLink = linkMatch.some(link => {
+          const l = link.toLowerCase();
+          return l.includes('security') || l.includes('verify') || l.includes('login') || l.includes('reset') || l.includes('.net');
+        });
+        if (suspiciousLink) {
+          score += 2.0;
+          reasons.push('The embedded link appears to redirect to an unverified or suspicious destination.');
+          notes.push('suspicious_link');
+        } else {
+          score += 0.6;
+          reasons.push('The message contains an external link, which increases risk slightly.');
+        }
+      }
+
+      const safePatterns = ['no action needed', 'updated schedule', 'meeting', 'room schedule'];
+      const safeHits = safePatterns.filter(term => text.includes(term));
+      if (safeHits.length >= 2 && score < 2) {
+        score = Math.max(0.8, score - 0.5);
+        reasons.push('The message context looks consistent with a low-risk school or work update.');
+      }
+
+      score = Math.min(9.8, Math.max(0.6, Number(score.toFixed(1))));
+
+      let level = 'LOW';
+      let cls = 'low';
+      let summary = 'Likely safe, but continue to use normal caution.';
+      let action = 'Deliver normally with no warning, or a subtle info icon.';
+      if (score >= 7) {
+        level = 'HIGH';
+        cls = 'high';
+        summary = 'Strong signs of phishing or impersonation.';
+        action = 'Prominent warning banner or quarantine with user confirmation.';
+      } else if (score >= 4) {
+        level = 'MEDIUM';
+        cls = 'medium';
+        summary = 'Some suspicious characteristics are present.';
+        action = 'Show a visible caution banner and discourage clicking links.';
+      }
+
+      if (reasons.length === 0) {
+        reasons.push('No strong phishing indicators were detected in this simplified prototype.');
+      }
+
+      document.getElementById('result').innerHTML = `
+        <div class="risk-box">
+          <div class="risk-title">
+            <div>
+              <div class="mini">Risk assessment</div>
+              <div class="risk-score">${score}/10</div>
+            </div>
+            <span class="tag ${cls}">${level} RISK</span>
+          </div>
+          <p><strong>Summary:</strong> ${summary}</p>
+          <p><strong>User-facing explanation:</strong> This email was flagged because ${plainSummary(reasons)}.</p>
+          <p><strong>Recommended action:</strong> ${action}</p>
+        </div>
+        <div>
+          <h2 style="margin-top:0">Why it was flagged</h2>
+          <ul>${reasons.map(r => `<li>${r}</li>`).join('')}</ul>
+        </div>
+        <div style="margin-top:14px">
+          <h2 style="margin-top:0">Backend signals triggered</h2>
+          <p class="mini">${notes.length ? notes.join(' • ') : 'none'}</p>
+        </div>
+      `;
+    }
+
+    function plainSummary(reasons) {
+      const stripped = reasons.map(r => r.replace(/<[^>]+>/g, '').replace(/\.$/, '').toLowerCase());
+      if (stripped.length === 1) return stripped[0];
+      if (stripped.length === 2) return stripped[0] + ' and ' + stripped[1];
+      return stripped.slice(0, -1).join(', ') + ', and ' + stripped[stripped.length - 1];
+    }
+
+    function loadExample(key) {
+      const ex = examples[key];
+      document.getElementById('from').value = ex.from;
+      document.getElementById('subject').value = ex.subject;
+      document.getElementById('body').value = ex.body;
+      analyzeEmail();
+    }
+
+    analyzeEmail();
+  </script>
+</body>
+</html>
